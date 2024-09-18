@@ -15,11 +15,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
-from apps.pizza_core.urls import router as pizza_core_router
+from apps.pizza_shop.urls import router as pizza_shop_router
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/", include(pizza_core_router.urls)),
+    path("api/", include(pizza_shop_router.urls)),
 ]
 
 # # # # # # # #

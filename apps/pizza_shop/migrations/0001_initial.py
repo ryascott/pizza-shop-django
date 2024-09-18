@@ -3,7 +3,7 @@
 import django.db.models.deletion
 from django.db import migrations, models
 
-import apps.pizza_core.models
+import apps.pizza_shop.models
 
 
 class Migration(migrations.Migration):
@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "external_id",
-                    apps.pizza_core.models.PrefixedULIDField(
+                    apps.pizza_shop.models.PrefixedULIDField(
                         db_index=True,
                         editable=False,
                         max_length=30,
@@ -55,7 +55,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "external_id",
-                    apps.pizza_core.models.PrefixedULIDField(
+                    apps.pizza_shop.models.PrefixedULIDField(
                         db_index=True,
                         editable=False,
                         max_length=31,
@@ -84,7 +84,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "external_id",
-                    apps.pizza_core.models.PrefixedULIDField(
+                    apps.pizza_shop.models.PrefixedULIDField(
                         db_index=True,
                         editable=False,
                         max_length=30,
@@ -112,7 +112,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "external_id",
-                    apps.pizza_core.models.PrefixedULIDField(
+                    apps.pizza_shop.models.PrefixedULIDField(
                         db_index=True,
                         editable=False,
                         max_length=30,
@@ -151,7 +151,7 @@ class Migration(migrations.Migration):
                     "customer",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        to="pizza_core.customer",
+                        to="pizza_shop.customer",
                     ),
                 ),
             ],
@@ -170,7 +170,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "external_id",
-                    apps.pizza_core.models.PrefixedULIDField(
+                    apps.pizza_shop.models.PrefixedULIDField(
                         db_index=True,
                         editable=False,
                         max_length=30,
@@ -187,7 +187,7 @@ class Migration(migrations.Migration):
                     "order",
                     models.OneToOneField(
                         on_delete=django.db.models.deletion.CASCADE,
-                        to="pizza_core.order",
+                        to="pizza_shop.order",
                     ),
                 ),
             ],
@@ -206,7 +206,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "external_id",
-                    apps.pizza_core.models.PrefixedULIDField(
+                    apps.pizza_shop.models.PrefixedULIDField(
                         db_index=True,
                         editable=False,
                         max_length=30,
@@ -235,15 +235,15 @@ class Migration(migrations.Migration):
                     "crust",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        to="pizza_core.crust",
+                        to="pizza_shop.crust",
                     ),
                 ),
-                ("toppings", models.ManyToManyField(to="pizza_core.topping")),
+                ("toppings", models.ManyToManyField(to="pizza_shop.topping")),
             ],
         ),
         migrations.AddField(
             model_name="order",
             name="pizzas",
-            field=models.ManyToManyField(to="pizza_core.pizza"),
+            field=models.ManyToManyField(to="pizza_shop.pizza"),
         ),
     ]

@@ -8,21 +8,22 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
-import dj_database_url
 import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 env = environ.FileAwareEnv()
-READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
-
 env.prefix = "PZA_"
-if READ_DOT_ENV_FILE:
-    # OS environment variables take precedence over variables from .env
-    env.read_env(str(BASE_DIR.parent / ".env"))
+
+env_file_path = str(BASE_DIR / ".env")
+
+# OS environment variables take precedence over variables from .env
+if os.path.exists(env_file_path):
+    env.read_env(env_file_path)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -48,7 +49,7 @@ INSTALLED_APPS = [
     "django_extensions",
     "rest_framework",
     "corsheaders",
-    "apps.pizza_core",
+    "apps.pizza_shop",
 ]
 
 MIDDLEWARE = [
@@ -95,21 +96,19 @@ WSGI_APPLICATION = "config.wsgi.application"
 #     }
 # }
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "pizza_shop",
-        "USER": "pizza_user",
-        "PASSWORD": "pizza_password",
-        "HOST": "localhost",
-        "PORT": "15432",
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "pizza_shop",
+#         "USER": "pizza_user",
+#         "PASSWORD": "pizza_password",
+#         "HOST": "localhost",
+#         "PORT": "15432",
+#     }
+# }
 
 DATABASES = {
-    "default": dj_database_url.config(
-        default=env.str("DATABASE_URL", default=f"sqlite:///{BASE_DIR}/db.sqlite3"),
-    )
+    "default": env.db(),
 }
 
 
@@ -160,12 +159,12 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 import sentry_sdk
 
 sentry_sdk.init(
-    dsn="https://3e70e5654c62d1297806a3ed10b8e554@o4507930501775360.ingest.us.sentry.io/4507930506362880",
+    dsn=env.str("SENTRY_DSN"),
     # Set traces_sample_rate to 1.0 to capture 100%
     # of transactions for tracing.
-    traces_sample_rate=1.0,
+    traces_sample_rate=env.float("SENTRY_TRACE_SAMPLE_RATE", 1.0),
     # Set profiles_sample_rate to 1.0 to profile 100%
     # of sampled transactions.
     # We recommend adjusting this value in production.
-    profiles_sample_rate=1.0,
+    profiles_sample_rate=env.float("SENTRY_PROFILE_SAMPLE_RATE", 1.0),
 )

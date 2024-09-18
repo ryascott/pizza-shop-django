@@ -5,7 +5,7 @@ from django.core.management.base import BaseCommand
 from django.db import transaction
 from faker import Faker
 
-from apps.pizza_core.models import Crust, Customer, Order, Pizza, Topping
+from apps.pizza_shop.models import Crust, Customer, Order, Pizza, Topping
 
 fake = Faker()
 

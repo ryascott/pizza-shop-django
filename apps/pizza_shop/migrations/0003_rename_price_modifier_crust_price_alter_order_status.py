@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("pizza_core", "0002_remove_pizza_name"),
+        ("pizza_shop", "0002_remove_pizza_name"),
     ]
 
     operations = [
