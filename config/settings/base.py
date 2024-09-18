@@ -159,12 +159,12 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 import sentry_sdk
 
 sentry_sdk.init(
-    dsn=env.str("PZA_SENTRY_DSN"),
+    dsn=env.str("SENTRY_DSN"),
     # Set traces_sample_rate to 1.0 to capture 100%
     # of transactions for tracing.
-    traces_sample_rate=env.float("PZA_SENTRY_TRACE_SAMPLE_RATE", 1.0),
+    traces_sample_rate=env.float("SENTRY_TRACE_SAMPLE_RATE", 1.0),
     # Set profiles_sample_rate to 1.0 to profile 100%
     # of sampled transactions.
     # We recommend adjusting this value in production.
-    profiles_sample_rate=env.float("PZA_SENTRY_PROFILE_SAMPLE_RATE", 1.0),
+    profiles_sample_rate=env.float("SENTRY_PROFILE_SAMPLE_RATE", 1.0),
 )
