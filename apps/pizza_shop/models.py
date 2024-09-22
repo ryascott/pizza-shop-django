@@ -36,7 +36,7 @@ class Customer(models.Model):
     date_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.name + self.email
+        return self.name + self.email + self.phone
 
 
 class Topping(models.Model):
